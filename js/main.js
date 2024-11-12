@@ -506,10 +506,10 @@ let adelantoFormateado = adelanto.toLocaleString('es-ES');
 
         
         yPosition+=20;
-        doc.text(`Plazo mantenimiento de oferta 10 dias corridos. esta oferta vence el dia `+ getDate(10),20,yPosition);
+        
     }
 
-    
+    doc.text(`Plazo mantenimiento de oferta 10 dias corridos. esta oferta vence el dia `+ getDate(10),20,yPosition);
     doc.save('Presupuesto '+nombreCliente);
 });
 
