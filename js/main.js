@@ -377,8 +377,15 @@ function getDate(diasSumar = 0) {
 }
 
 
-document.getElementById('generarPdf').addEventListener('click',()=>{
+document.getElementById('generarPdf').addEventListener('click', () => {
+    generatePdf(false); // Se pasa 'false' para el PDF estándar
+});
 
+document.getElementById('generarPdfDiscriminado').addEventListener('click', () => {
+    generatePdf(true); // Se pasa 'true' para el PDF discriminado
+});
+
+function generatePdf(isDiscriminated) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
@@ -400,7 +407,6 @@ document.getElementById('generarPdf').addEventListener('click',()=>{
     doc.addImage('Images/DigisegLogo.png', 'PNG', 25, yPosition, 25, 25); // Tamaño del logo
     yPosition += 7;
 
-
     // 2. Agregar texto "Seguridad Digital"
     doc.setFontSize(11);
     doc.text('Seguridad Digital.', 50, yPosition); // 45 es la posición X después del logo
@@ -415,30 +421,31 @@ document.getElementById('generarPdf').addEventListener('click',()=>{
     doc.text('Tel: 154346527', 55, yPosition); // Posición bajo la imagen
     yPosition += 10;
 
-
     doc.setFontSize(12);
-    doc.text(fechaHoy,140,yPosition)
-    yPosition+=12;
+    doc.text(fechaHoy, 140, yPosition)
+    yPosition += 12;
+
     doc.setFontSize(14);
     doc.text('PRESUPUESTO', 90, yPosition);
     yPosition += 10;
-    doc.setFontSize(12);
-    doc.text('Estimado Sr/Sra',20,yPosition);
-    yPosition+=5;
-    doc.text(nombreCliente,20,yPosition);
-    yPosition+=5;
-    doc.text(direccionCliente,20,yPosition);
-    yPosition+=10;
-    doc.text('Instalacion de sistema de '+tipoPresupuesto+ ' compuesto por:',20,yPosition);
-    yPosition+=10;
 
-    if (isNaN(precioBocas) || isNaN(cantBocas) || precioBocas <= 0 || cantBocas <= 0 || nombreCliente=='' || direccionCliente == '') {
+    doc.setFontSize(12);
+    doc.text('Estimado Sr/Sra', 20, yPosition);
+    yPosition += 5;
+    doc.text(nombreCliente, 20, yPosition);
+    yPosition += 5;
+    doc.text(direccionCliente, 20, yPosition);
+    yPosition += 10;
+    doc.text('Instalacion de sistema de ' + tipoPresupuesto + ' compuesto por:', 20, yPosition);
+    yPosition += 10;
+
+    if (isNaN(precioBocas) || isNaN(cantBocas) || precioBocas <= 0 || cantBocas <= 0 || nombreCliente == '' || direccionCliente == '') {
         alert('Campos incompletos o valores invalidos.');
-        return; 
+        return;
     }
 
-    for (const item of items){
-
+    // Agregar artículos a la lista
+    for (const item of items) {
         let articuloId = parseInt(item.querySelector('.itemSelector').value, 10);
         const producto = productos.find(p => p.id == articuloId);
         const articuloNombre = producto ? producto.name : "Producto desconocido";
@@ -451,18 +458,17 @@ document.getElementById('generarPdf').addEventListener('click',()=>{
         }
 
         doc.setFontSize(12);
-        doc.text(`${articuloNombre} x ${cantidad}`, 20, yPosition);
+        if (isDiscriminated) {
+            doc.text(`${articuloNombre} x ${cantidad} - $${precio}`, 20, yPosition); // Agregar precio
+        } else {
+            doc.text(`${articuloNombre} x ${cantidad}`, 20, yPosition); // Sin precio
+        }
         yPosition += 4;
 
         total += precio * cantidad;
-
-        console.log ('El total es de '+ precio + ' Compraste: '+cantidad+' '+articuloNombre);
     }
 
-    
-
-
-    let totalFinal=(total+(precioBocas*cantBocas));
+    let totalFinal = (total + (precioBocas * cantBocas));
 
     if (isNaN(totalFinal) || totalFinal <= 0) {
         alert('Error al calcular el total. Por favor, revise los valores ingresados.');
@@ -470,46 +476,47 @@ document.getElementById('generarPdf').addEventListener('click',()=>{
     }
 
     let adelanto = Math.floor(totalFinal * 0.6);
-let totalRedondeado = Math.floor(totalFinal);
+    let totalRedondeado = Math.floor(totalFinal);
 
-// Aplica `toLocaleString()` solo a los números redondeados
-let totalFormateado = totalRedondeado.toLocaleString('es-ES');
-let adelantoFormateado = adelanto.toLocaleString('es-ES');
+    // Aplica `toLocaleString()` solo a los números redondeados
+    let totalFormateado = totalRedondeado.toLocaleString('es-ES');
+    let adelantoFormateado = adelanto.toLocaleString('es-ES');
 
     yPosition += 10;
     doc.text(`Total, materiales mas mano de obra $${totalFormateado} ARS, se debe abonar un adelanto de $${adelantoFormateado} ARS.`, 20, yPosition);
-    yPosition +=20;
+    yPosition += 20;
 
-    if (itemsOpcionales[0].children.length > 0){
+    // Agregar items opcionales
+    if (itemsOpcionales[0].children.length > 0) {
         doc.text('Opcional que se agrega al presupuesto', 20, yPosition);
-        let totalOpcional=0;
-        for (const itemOpcional of itemsOpcionales){
+        let totalOpcional = 0;
+        for (const itemOpcional of itemsOpcionales) {
             const producto = itemOpcional.querySelector('.nombreArticulo').value;
             const cantProducto = itemOpcional.querySelector('.cantItemOpcional').value;
             const precio = itemOpcional.querySelector('.priceItemOpcional').value;
 
-            if ((producto == '')|| isNaN(cantProducto) || cantProducto <= 0 || isNaN(precio) || precio <= 0) {
+            if ((producto == '') || isNaN(cantProducto) || cantProducto <= 0 || isNaN(precio) || precio <= 0) {
                 alert('Por favor, complete todos los campos de los productos correctamente.');
                 return;
             }
             let precioRedondeado = Math.floor(precio);
             let precioFormateado = precioRedondeado.toLocaleString('es-ES');
             doc.setFontSize(12);
-            yPosition+=5;
+            yPosition += 5;
             doc.text(`${producto} x ${cantProducto} $${precioFormateado}`, 20, yPosition);
             yPosition += 5;
 
             totalOpcional += precio * cantProducto;
         }
 
-        
-
-        
-        yPosition+=20;
-        
+        yPosition += 20;
     }
 
-    doc.text(`Plazo mantenimiento de oferta 10 dias corridos. esta oferta vence el dia `+ getDate(10),20,yPosition);
-    doc.save('Presupuesto '+nombreCliente);
-});
+    doc.text(`Plazo mantenimiento de oferta 10 dias corridos. esta oferta vence el dia ` + getDate(10), 20, yPosition);
+    if(isDiscriminated){
+        doc.save('Presupuesto Discriminado '+ nombreCliente);
+    }else{
+    doc.save('Presupuesto ' + nombreCliente);
+    }
+};
 
