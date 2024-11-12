@@ -452,7 +452,7 @@ document.getElementById('generarPdf').addEventListener('click',()=>{
 
         doc.setFontSize(12);
         doc.text(`${articuloNombre} x ${cantidad}`, 20, yPosition);
-        yPosition += 10;
+        yPosition += 4;
 
         total += precio * cantidad;
 
