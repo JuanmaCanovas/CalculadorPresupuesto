@@ -433,7 +433,7 @@ document.getElementById('generarPdf').addEventListener('click',()=>{
     yPosition+=10;
 
     if (isNaN(precioBocas) || isNaN(cantBocas) || precioBocas <= 0 || cantBocas <= 0 || nombreCliente=='' || direccionCliente == '') {
-        alert('Por favor, ingrese valores válidos para el precio y cantidad de bocas.');
+        alert('Campos incompletos o valores invalidos.');
         return; 
     }
 
