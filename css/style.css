@@ -1,0 +1,237 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+h1{
+    color: #ffffff;
+    text-align: center;
+}
+
+.logoContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logoContainer>img{
+    width: 130px;
+}
+
+.logoText{
+    height: 70px;
+}
+
+.containerGral{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mensajeBienvenida{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:2rem;
+}
+
+#userInfo{
+    color: white;
+    font-size: 15px;
+}
+
+html, body {
+    height: 100%; 
+    margin: 0; 
+}
+
+body {
+    background: linear-gradient(to bottom, #0d0d0d, #5c0303);
+    background-attachment: fixed; 
+    min-height: 100%;
+}
+
+input{
+    max-width: 100%;
+}
+
+.container-form{
+    width: 100%;
+    gap: 1rem;
+    flex-direction: column;
+} 
+
+.card-img-top{
+    max-height: 200px;
+    object-fit: cover;
+}
+
+
+
+.seccion-articulos{
+    width: 100%;
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+#productos-container{
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+
+.budgetBuilderContainer{
+    max-width: 100%;
+    margin-top: 6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.itemContainer, .itemContainerOptional{
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding-bottom: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+h2{ 
+    margin-top: 2rem;
+    color: #ffffff;
+}
+
+.items{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+label{
+    color: #ffffff;
+    font-size: 18px;
+}
+
+.inputContainer{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+.itemSelector{
+    width: 259px;
+}
+
+#cantItem{
+    width: 100px;
+    margin-left: 75px;
+    margin-right: 75px;
+}
+
+.priceContainer{
+    width: 250px;
+    height: 38px;
+    align-items: center;
+    text-align: center;
+    display: flex;
+}
+
+.inputContainer>.priceContainer>p{
+    color: #ffffff;
+    font-size: 16px;
+    position: relative;
+    margin-bottom: 0;
+    margin: auto;
+}
+
+form{
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bocasContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+#cantBocas,#priceBocas{
+    width: 100px;
+}
+
+.addBtn{
+    width: 100px;
+}
+
+.btnGenerarContainer{
+    margin-top: 4rem;
+    display: flex;
+    gap: 2rem;
+}
+
+.infoCliente{
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    display: flex;
+    gap: 2rem;
+}
+
+.hidden{
+    visibility: hidden;
+}
+
+footer{
+    margin-top: 1rem;
+}
+
+footer>p{
+    text-align: center;
+    color:#ffffff;
+    font-size: 10px;
+}
+
+
+
+@media (max-width: 480px){
+
+    .items{
+        width: 100%;
+    }
+
+    .itemContainer{
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .logoContainer>img{
+        width: 90px;
+    }
+    
+    .logoText{
+        height: 40px;
+    }
+   
+}
