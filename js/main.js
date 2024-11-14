@@ -459,11 +459,12 @@ function generatePdf(isDiscriminated) {
 
         doc.setFontSize(12);
         if (isDiscriminated) {
-            doc.text(`${articuloNombre} x ${cantidad} - $${precio}`, 20, yPosition); // Agregar precio
+            doc.text(`${articuloNombre} x ${cantidad}`, 20, yPosition);
+            doc.text(`$${precio*cantidad}`, 80, yPosition); // Agregar precio
         } else {
             doc.text(`${articuloNombre} x ${cantidad}`, 20, yPosition); // Sin precio
         }
-        yPosition += 4;
+        yPosition += 6;
 
         total += precio * cantidad;
     }
