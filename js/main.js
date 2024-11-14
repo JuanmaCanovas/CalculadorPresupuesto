@@ -465,7 +465,6 @@ function generatePdf(isDiscriminated) {
             doc.text(`${articuloNombre} x ${cantidad}`, 20, yPosition); // Sin precio
         }
         yPosition += 6;
-
         total += precio * cantidad;
     }
 
@@ -482,7 +481,12 @@ function generatePdf(isDiscriminated) {
     // Aplica `toLocaleString()` solo a los números redondeados
     let totalFormateado = totalRedondeado.toLocaleString('es-ES');
     let adelantoFormateado = adelanto.toLocaleString('es-ES');
-
+    yPosition +=6;
+    if(isDiscriminated){
+        doc.text(`Total materiales: $${total}`,50,yPosition);
+        yPosition+=5;
+        doc.text(`Total mano de obra: $${precioBocas*cantBocas}`,50,yPosition);
+    }
     yPosition += 10;
     doc.text(`Total, materiales mas mano de obra $${totalFormateado} ARS, se debe abonar un adelanto de $${adelantoFormateado} ARS.`, 20, yPosition);
     yPosition += 20;
