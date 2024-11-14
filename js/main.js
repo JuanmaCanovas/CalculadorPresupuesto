@@ -520,3 +520,55 @@ function generatePdf(isDiscriminated) {
     }
 };
 
+function actualizarTotalAcumulado() {
+    let total = 0;
+    // Calcular el total para los artículos
+    const items = document.querySelectorAll('.itemContainer');
+    for (const item of items) {
+        const cantidad = parseInt(item.querySelector('.cantItem').value) || 0;
+        const precio = parseInt(item.querySelector('.priceItem').textContent.replace('$', '')) || 0;
+        total += cantidad * precio;
+    }
+
+    // Calcular el total para los artículos opcionales
+    const itemsOpcionales = document.querySelectorAll('.itemContainerOptional');
+    for (const item of itemsOpcionales) {
+        const cantidad = parseInt(item.querySelector('.cantItemOpcional').value) || 0;
+        const precio = parseInt(item.querySelector('.priceItemOpcional').value) || 0;
+        total += cantidad * precio;
+    }
+
+    // Calcular el total para las bocas
+    const precioBocas = parseInt(document.getElementById('priceBocas').value) || 0;
+    const cantBocas = parseInt(document.getElementById('cantBocas').value) || 0;
+    total += precioBocas * cantBocas;
+
+    // Actualizar el input de total acumulado
+    
+    document.getElementById('totalAcumulado').value = '$'+total;
+}
+
+// Escuchar cambios en los artículos
+document.addEventListener('change', (event) => {
+    if (
+        event.target.classList.contains('cantItem') ||
+        event.target.classList.contains('itemSelector') ||
+        event.target.classList.contains('priceItemOpcional') ||
+        event.target.classList.contains('cantItemOpcional') ||
+        event.target.id === 'priceBocas' ||
+        event.target.id === 'cantBocas'
+    ) {
+        actualizarTotalAcumulado();
+    }
+});
+
+// Escuchar clics para agregar nuevos artículos
+document.getElementById('addItem').addEventListener('click', () => {
+    actualizarTotalAcumulado();
+});
+
+// Escuchar clics para agregar artículos opcionales
+document.getElementById('addOpcional').addEventListener('click', () => {
+    actualizarTotalAcumulado();
+});
+

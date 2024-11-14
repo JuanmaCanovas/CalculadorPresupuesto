@@ -15,6 +15,12 @@ h1{
     align-items: center;
 }
 
+.verArticulos{
+    margin: auto;
+    margin-top: 2rem;
+    display: block;
+}
+
 .logoContainer>img{
     width: 130px;
 }
@@ -131,11 +137,22 @@ label{
     font-size: 18px;
 }
 
-.inputContainer{
+.inputContainer,.totalContainer{
     display: flex;
     flex-direction: column;
     text-align: center;
     align-items: center;
+}
+
+.totalContainer{
+    margin-top: 2rem;
+}
+
+#totalAcumulado{
+    background: none;
+    border: none;
+    color: #ffffff;
+    text-align: center;
 }
 
 .itemSelector{
