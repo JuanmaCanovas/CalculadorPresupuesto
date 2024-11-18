@@ -15,7 +15,7 @@ h1{
     align-items: center;
 }
 
-.verArticulos{
+.verArticulos, #openArticulo{
     margin: auto;
     margin-top: 2rem;
     display: block;
